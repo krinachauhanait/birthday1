@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code - Birthday Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-align: center;
+    }
+    #qrcode {
+      margin: 20px;
+      padding: 10px;
+      background: white;
+      border-radius: 12px;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ff6b9d;
+      color: white;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #e05582;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Scan to Open Birthday Celebration 🎂</h1>
+  <div id="qrcode"></div>
+  <button id="downloadBtn">⬇️ Download QR Code</button>
+
+  <!-- QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // Link to your main page (adjust when deployed)
+    const pageUrl = window.location.origin + "/index.html";
+
+    // Generate QR Code
+    const qrCode = new QRCode(document.getElementById("qrcode"), {
+      text: pageUrl,
+      width: 250,
+      height: 250
+    });
+
+    // Download QR Code as Image
+    document.getElementById("downloadBtn").addEventListener("click", function() {
+      const img = document.querySelector("#qrcode img") || document.querySelector("#qrcode canvas");
+      const link = document.createElement("a");
+      link.href = img.src || img.toDataURL("image/png");
+      link.download = "birthday_qrcode.png";
+      link.click();
+    });
+  </script>
+</body>
+</html>
