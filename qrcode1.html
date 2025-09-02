@@ -40,29 +40,32 @@
 <body>
   <h1>🎉 Scan to Open Birthday Celebration 🎂</h1>
   <div id="qrcode"></div>
-  <button id="downloadBtn">⬇️ Download QR Code</button>
+  <button id="downloadBtn">⬇️ Download Whole Page</button>
 
   <!-- QR Code Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- html2canvas Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <script>
-    // Link to your main page (adjust when deployed)
-   //const pageUrl = window.location.origin + "/index.html";
+    // 👉 Link to your GitHub Pages site
     const pageUrl = "https://krinachauhanait.github.io/birthday1/index.html";
 
     // Generate QR Code
-    const qrCode = new QRCode(document.getElementById("qrcode"), {
+    new QRCode(document.getElementById("qrcode"), {
       text: pageUrl,
       width: 250,
       height: 250
     });
 
-    // Download QR Code as Image
+    // Download entire page as image
     document.getElementById("downloadBtn").addEventListener("click", function() {
-      const img = document.querySelector("#qrcode img") || document.querySelector("#qrcode canvas");
-      const link = document.createElement("a");
-      link.href = img.src || img.toDataURL("image/png");
-      link.download = "birthday_qrcode.png";
-      link.click();
+      html2canvas(document.body).then(canvas => {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = "qrcode_page.png";
+        link.click();
+      });
     });
   </script>
 </body>
